@@ -1,5 +1,6 @@
 jupyter==1.0.0
 numpy==1.26.0
-pandas==1.2.3
+pandas==2.1.1
 scikit-learn==0.24.2
+fastparquet==2023.8.0
 
