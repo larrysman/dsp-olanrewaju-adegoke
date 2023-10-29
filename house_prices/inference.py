@@ -1,3 +1,7 @@
+import numpas as np
+import pandas as pd
+import joblib
+
 def make_prediction(test_set: pd.DataFrame) -> np.ndarray:
     LinReg_model = joblib.load('../models/LinReg.joblib')
     predictions = LinReg_model.predict(test_set)
@@ -71,7 +75,3 @@ def make_predictions(dataPath: str) -> np.ndarray:
     predictions = make_prediction(test_set)
 
     return predictions
-
-
-
-

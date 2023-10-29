@@ -1,3 +1,7 @@
+import numpy as np
+import pandas as pd
+import jobliib
+
 def load_selected_dataset(dataPATH: str) -> pd.DataFrame:
     train_csv_master = pd.read_csv(dataPATH)
     train_csv = train_csv_master.copy()
@@ -9,7 +13,6 @@ def select_features_columns() -> Tuple[List[str], List[str]]:
     continuous_features = ['YearBuilt','TotalBsmtSF','MiscVal']
     return categorical_features,continuous_features
 
-
 def features_target_selection(dataset: pd.DataFrame, categorical_features: List[str], continuous_features: List[str]) -> Tuple[pd.DataFrame, pd.Series]:
     features = dataset[categorical_features + continuous_features]
     target = dataset['SalePrice']
@@ -19,7 +22,6 @@ def custom_splitting(features: pd.DataFrame, target: pd.Series, test_size: float
     X_train, X_test, y_train, y_test = train_test_split(features, target, test_size=test_size, random_state=random_state)
     return X_train,X_test,y_train,y_test
 
-
 def encoding_categorical_features(categorical_features: List[str], X_train: pd.DataFrame) -> pd.DataFrame:
     oneHot = OneHotEncoder(drop = 'first', sparse=False)
     oneHot.fit(X_train[categorical_features])
@@ -27,7 +29,6 @@ def encoding_categorical_features(categorical_features: List[str], X_train: pd.D
     X_train_cat_DF = pd.DataFrame(X_train_cat, columns=oneHot.get_feature_names(categorical_features ))
     joblib.dump(oneHot, '../models/oneHot.joblib')
     return X_train_cat_DF
-
 
 def scaling_continuous_features(continuous_features: List[str], X_train: pd.DataFrame) -> pd.DataFrame:
     stdScaler = StandardScaler()
@@ -55,8 +56,7 @@ def resetting_index_parquet_x_train(X_train: pd.DataFrame, X_train_df: pd.DataFr
 
 def x_train_dataframe_equality_check(dataPATH: str, X_train: pd.DataFrame) -> pd.DataFrame:
     X_train_df = save_load_to_parquet_x_train(dataPATH, X_train)
-    X_train, X_train_df = resetting_index_parquet_x_train(X_train, X_train_df)     
-    pd.testing.assert_frame_equal(X_train_df, X_train)
+    X_train, X_train_df = resetting_index_parquet_x_train(X_train, X_train_df)      pd.testing.assert_frame_equal(X_train_df, X_train)
     return X_train
 
 def encoding_categorical_features(categorical_features: List[str], X_test: pd.DataFrame) -> pd.DataFrame:
@@ -102,17 +102,4 @@ def preprocessing(categorical_features: List[str], continuous_features: List[str
     X_train = preprocessing_x_train(categorical_features, continuous_features, X_train)
     X_test = preprocessing_x_test(categorical_features, continuous_features, X_test)
     return X_train,X_test
-
-
-
-
-
-
-
-
-
-
-
-
-
 
