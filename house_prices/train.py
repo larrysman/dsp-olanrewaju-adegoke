@@ -52,7 +52,7 @@ def encoding_categorical_features(categorical_features: List[str],
     X_train_cat_DF = pd.DataFrame(X_train_cat,
                                   columns=oneHot.get_feature_names(
                                       categorical_features))
-    # joblib.dump(oneHot, '../models/oneHot.joblib')
+    joblib.dump(oneHot, 'models/oneHot.joblib')
     return X_train_cat_DF
 
 
@@ -62,7 +62,7 @@ def scaling_continuous_features(continuous_features: List[str],
     stdScaler.fit(X_train[continuous_features])
     X_train_cont = stdScaler.transform(X_train[continuous_features])
     X_train_cont_DF = pd.DataFrame(X_train_cont, columns=continuous_features)
-    # joblib.dump(stdScaler, '../models/stdScaler.joblib')
+    joblib.dump(stdScaler, 'models/stdScaler.joblib')
     return X_train_cont_DF
 
 
@@ -163,12 +163,12 @@ def training_model(X_train: pd.DataFrame,
                    ) -> LinearRegression:
     LinReg = LinearRegression()
     LinReg.fit(X_train, y_train)
-    joblib.dump(LinReg, '../models/LinReg.joblib')
+    joblib.dump(LinReg, 'models/LinReg.joblib')
     return LinReg
 
 
 def model_prediction(X_test: pd.Series) -> np.ndarray:
-    LinReg_model = joblib.load('../models/LinReg.joblib')
+    LinReg_model = joblib.load('models/LinReg.joblib')
     y_predicted = LinReg_model.predict(X_test)
     return y_predicted
 

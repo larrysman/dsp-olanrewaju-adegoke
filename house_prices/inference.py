@@ -6,7 +6,7 @@ dataPATH = '/Users/OLALYTICS/dsp-olanrewaju-adegoke/data/train.csv'
 
 
 def make_prediction(test_set: pd.DataFrame) -> np.ndarray:
-    LinReg_model = joblib.load('../models/LinReg.joblib')
+    LinReg_model = joblib.load('models/LinReg.joblib')
     predictions = LinReg_model.predict(test_set)
     return predictions[:5]
 
@@ -68,7 +68,7 @@ def scaling_continuous_features_test_data(
         continuous_features: List[str], test_csv_features: pd.DataFrame
 ) -> pd.DataFrame:
     loaded_stdScaler = joblib.load(
-        '../models/stdScaler.joblib')
+        'models/stdScaler.joblib')
     test_csv_cont = loaded_stdScaler.transform(
         test_csv_features[continuous_features])
     test_csv_cont_DF = pd.DataFrame(
@@ -80,7 +80,7 @@ def encoding_categorical_features_test_data(
         categorical_features: List[str], test_csv_features: pd.DataFrame
 ) -> pd.DataFrame:
     loaded_oneHot = joblib.load(
-        '../models/oneHot.joblib')
+        'models/oneHot.joblib')
     test_csv_cat = loaded_oneHot.transform(
         test_csv_features[categorical_features])
     test_csv_cat_DF = pd.DataFrame(

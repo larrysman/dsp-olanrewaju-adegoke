@@ -49,7 +49,7 @@ def encoding_categorical_features(categorical_features: List[str],
     X_train_cat_DF = pd.DataFrame(X_train_cat,
                                   columns=oneHot.get_feature_names(
                                       categorical_features))
-    joblib.dump(oneHot, '../models/oneHot.joblib')
+    joblib.dump(oneHot, 'models/oneHot.joblib')
     return X_train_cat_DF
 
 
@@ -59,7 +59,7 @@ def scaling_continuous_features(continuous_features: List[str],
     stdScaler.fit(X_train[continuous_features])
     X_train_cont = stdScaler.transform(X_train[continuous_features])
     X_train_cont_DF = pd.DataFrame(X_train_cont, columns=continuous_features)
-    joblib.dump(stdScaler, '../models/stdScaler.joblib')
+    joblib.dump(stdScaler, 'models/stdScaler.joblib')
     return X_train_cont_DF
 
 
