@@ -7,11 +7,12 @@ from sklearn.metrics import mean_squared_log_error
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.preprocessing import StandardScaler
+dataPATH = '/Users/OLALYTICS/dsp-olanrewaju-adegoke/data/train.csv'
 
 
 def load_selected_dataset(dataPATH: str) -> pd.DataFrame:
-    train_csv_master = pd.read_csv(dataPATH)
-    train_csv = train_csv_master.copy()
+    # train_csv_master = pd.read_csv(dataPATH)
+    train_csv = pd.read_csv(dataPATH)
     dataset = train_csv[['MSZoning', 'HouseStyle',
                          'YearBuilt', 'TotalBsmtSF', 'MiscVal', 'SalePrice']]
     return dataset
@@ -51,7 +52,7 @@ def encoding_categorical_features(categorical_features: List[str],
     X_train_cat_DF = pd.DataFrame(X_train_cat,
                                   columns=oneHot.get_feature_names(
                                       categorical_features))
-    joblib.dump(oneHot, '../models/oneHot.joblib')
+    # joblib.dump(oneHot, '../models/oneHot.joblib')
     return X_train_cat_DF
 
 
@@ -61,7 +62,7 @@ def scaling_continuous_features(continuous_features: List[str],
     stdScaler.fit(X_train[continuous_features])
     X_train_cont = stdScaler.transform(X_train[continuous_features])
     X_train_cont_DF = pd.DataFrame(X_train_cont, columns=continuous_features)
-    joblib.dump(stdScaler, '../models/stdScaler.joblib')
+    # joblib.dump(stdScaler, '../models/stdScaler.joblib')
     return X_train_cont_DF
 
 
